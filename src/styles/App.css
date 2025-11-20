@@ -1,0 +1,32 @@
+/* src/styles/App.css */
+:root{
+  --bg:#f7f7fb;
+  --card:#fff;
+  --accent:#2b6df6;
+  --muted:#555;
+}
+
+*{box-sizing:border-box}
+body,html,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#111}
+
+.app{max-width:1100px;margin:24px auto;padding:16px}
+.header{text-align:center;margin-bottom:18px}
+.header h1{margin:6px 0;font-size:2rem}
+.subtitle{color:var(--muted);margin-top:0}
+
+.main{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
+@media(max-width:880px){ .main{grid-template-columns:1fr} .summary{order:2} }
+
+.books-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:680px){ .books-grid{grid-template-columns:1fr} }
+
+.book-card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(12,20,40,0.06);border:1px solid rgba(0,0,0,0.03)}
+.book-card-header{display:flex;justify-content:space-between;align-items:center}
+.book-title{margin:0;font-size:1.1rem}
+.book-year{margin:0;color:var(--muted);font-size:0.95rem}
+.book-author,.book-genre{margin:8px 0;color:#333;font-size:0.95rem}
+.book-desc{margin-top:8px;color:#444;line-height:1.35}
+
+.summary{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,0.03)}
+.summary h2{margin-top:0}
+.footer{text-align:center;margin-top:22px;color:var(--muted);font-size:0.95rem}

@@ -1,44 +1,36 @@
+// src/App.jsx
 import React from "react";
 import BookCard from "./components/BookCard";
 import books from "./data/books";
+import "./styles/App.css";
 
-function mostCommonGenre(booksArray) {
-  const counts = {};
-  booksArray.forEach(b => {
-    counts[b.genre] = (counts[b.genre] || 0) + 1;
-  });
-  let maxCount = 0;
-  let common = "";
+function mostCommonGenre(booksArr) {
+  const counts = booksArr.reduce((acc, b) => {
+    acc[b.genre] = (acc[b.genre] || 0) + 1;
+    return acc;
+  }, {});
+  let top = null;
+  let max = 0;
   for (const [genre, count] of Object.entries(counts)) {
-    if (count > maxCount) {
-      maxCount = count;
-      common = genre;
-    }
+    if (count > max) { max = count; top = genre; }
   }
-  return common || "N/A";
+  return top || "N/A";
 }
 
 export default function App() {
-  const totalBooks = books.length;
-  const commonGenre = mostCommonGenre(books);
-
   return (
-    <div className="app-container">
+    <div className="app">
       <header className="header">
         <h1>My Book Collection</h1>
         <p className="subtitle">Books That Changed My Perspective</p>
       </header>
 
-      <main>
-        <section className="summary">
-          <p>Total books: <strong>{totalBooks}</strong></p>
-          <p>Most common genre: <strong>{commonGenre}</strong></p>
-        </section>
-
+      <main className="main">
         <section className="books-grid">
-          {books.map((book) => (
+          {books.map(book => (
+            // unique key prop: use book.id
             <BookCard
-              key={book.id}        // unique key prop
+              key={book.id}
               title={book.title}
               author={book.author}
               genre={book.genre}
@@ -47,11 +39,17 @@ export default function App() {
             />
           ))}
         </section>
+
+        <aside className="summary">
+          <h2>Collection Summary</h2>
+          <p><strong>Total books:</strong> {books.length}</p>
+          <p><strong>Most common genre:</strong> {mostCommonGenre(books)}</p>
+        </aside>
       </main>
 
       <footer className="footer">
+        <p>Your Name — your.email@example.com</p>
         <p>© {new Date().getFullYear()} Book Lover</p>
-        <p>Your Name • your.email@example.com</p>
       </footer>
     </div>
   );
